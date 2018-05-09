@@ -41,11 +41,4 @@ class LocalEventHandle():
 
     def get_event_detail(self, event):
         data = json.load(open(event["path"]))
-        pass
-
-def main():
-    localhandle = LocalEventHandle("~/.config/TGmeetup")
-    localhandle.get_event_list()
-
-if __name__ == '__main__':
-    main()
+        return data[event["event_num"]]
