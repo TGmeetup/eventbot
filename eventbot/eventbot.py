@@ -26,7 +26,7 @@ Code flow:
 
 def main():
     subprocess.check_output("tgmeetup -u", shell=True)
-    issuehandle = EventIssueHandle("TGmeetup/TGmeetup.github.io")
+    issuehandle = EventIssueHandle("TGmeetup/TGevents")
     localhandle = LocalEventHandle("~/.config/TGmeetup/")
 
     issue_list = issuehandle.get_issue_list()
