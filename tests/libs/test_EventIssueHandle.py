@@ -17,3 +17,10 @@ class TestGetIssueList:
         issuehandle = EventIssueHandle("TGmeetup/TGevents")
         issue_list = issuehandle.get_issue_list("code_test")
         assert issue_list == [{'title': '【May 9】For test case', 'id': 321417295, 'number': 4, 'datetime': '2018-05-09T11:00:00.000Z', 'name': 'For test case', 'groupRef': 'community/tw/PyHUG'}]
+
+class TestIssues:
+    def test_normal(self):
+        #issuehandle = EventIssueHandle("TGmeetup/TGevents")
+        #issuehandle.add_issue({'geocode': {'lat': 25.0329694, 'lng': 121.5654177}, 'geocodeFromGroup': 'true', 'link': 'https://devops.kktix.cc/events/monitoring-tools', 'local_city': 'Taipei', 'local_date': '2018-05-26', 'local_time': '14:00:00', 'name': 'DevOps Taiwan - Monitoring Tools 大亂鬥'}, "community/tw/PyHUG")
+        #issuehandle.close_issue(6)
+        pass
