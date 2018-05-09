@@ -13,7 +13,7 @@ class EventIssueHandle():
         self.repo = repo
         self.github_api = "https://api.github.com/repos/"
 
-    def get_issue_list(self):
+    def get_issue_list(self, label):
         # Get issues from GitHub, and return list
         all_event_issue = []
         header = {'Content-type': 'application/vnd.github.symmetra-preview+json'}
@@ -24,7 +24,7 @@ class EventIssueHandle():
         for e in events_info:
             if e["state"] == "open":
                 for l in e["labels"]:
-                    if l["name"] == "Event":
+                    if l["name"] == label:
                         soup = BeautifulSoup(e["body"], "html.parser")
                         body = json.loads(soup.details.string)
                         all_event_issue.append({
@@ -46,7 +46,7 @@ class EventIssueHandle():
 
 #def main():
 #    issuehandle = EventIssueHandle("TGmeetup/TGevents")
-#    issuehandle.get_issue_list()
+#    issuehandle.get_issue_list("code_test")
 
 #if __name__ == '__main__':
 #    main()

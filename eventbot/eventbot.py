@@ -29,7 +29,7 @@ def main():
     issuehandle = EventIssueHandle("TGmeetup/TGevents")
     localhandle = LocalEventHandle("~/.config/TGmeetup/")
 
-    issue_list = issuehandle.get_issue_list()
+    issue_list = issuehandle.get_issue_list("Event")
     localevent = localhandle.get_event_list()
 
     for i in localevent:
