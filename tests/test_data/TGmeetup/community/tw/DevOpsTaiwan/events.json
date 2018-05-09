@@ -1,0 +1,14 @@
+[
+  {
+    "geocode": {
+      "lat": 25.0329694,
+      "lng": 121.5654177
+    },
+    "geocodeFromGroup": "true",
+    "link": "https://devops.kktix.cc/events/sre-7",
+    "local_city": "Taipei",
+    "local_date": "2018-02-08",
+    "local_time": "19:30:00",
+    "name": "SRE 讀書會 #7"
+  }
+]
