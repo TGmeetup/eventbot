@@ -3,3 +3,4 @@ pytest
 flake8
 pep8
 beautifulsoup4
+markdown
