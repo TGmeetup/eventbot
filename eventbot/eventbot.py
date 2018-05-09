@@ -3,7 +3,9 @@
 
 import io
 import os
+import json
 import subprocess
+import configparser
 
 try:
     from .libs.EventIssueHandle import EventIssueHandle
@@ -26,21 +28,26 @@ Code flow:
 
 def main():
     subprocess.check_output("tgmeetup -u", shell=True)
-    issuehandle = EventIssueHandle("TGmeetup/TGevents")
+
+    config = configparser.ConfigParser()
+    config.read("AuthKey.cfg")
+    issuehandle = EventIssueHandle("TGmeetup/TGevents", config['GitHub_kay']['API_KEY'])
     localhandle = LocalEventHandle("~/.config/TGmeetup")
 
     issue_list = issuehandle.get_issue_list("Event")
     localevent = localhandle.get_event_list()
 
     for i in localevent:
-        # if i is in issue_list, update issue_list(remove i)
-        # else
-            # localhandle.get_event_detail(i)
-            # issuehandle.add_issue(i)
+        for j in issue_list:
+            if j["name"] == i["name"] and j["datetime"] == i["datetime"]:
+                issue_list.remove(j)
+            else:
+                detail_event = localhandle.get_event_detail(i)
+                issuehandle.add_issue(detail_event, i["groupRef"])
 
     if len(issue_list) > 0:
         for i in issue_list:
-            issuehandle.close_issue(i)
+            issuehandle.close_issue(i["number"])
 
 
 if __name__ == '__main__':

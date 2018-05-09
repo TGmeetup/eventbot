@@ -18,7 +18,6 @@ class LocalEventHandle():
                 ef_all.append(str(ef).split("'")[1])
             except BaseException:
                 ef_all.append(str(ef))
-        print(ef_all)
         return(ef_all)
 
     def get_event_list(self):
@@ -36,7 +35,6 @@ class LocalEventHandle():
                     "event_num": num
                 })
                 num = num+1
-        print(local_events)
         return local_events
 
     def get_event_detail(self, event):
