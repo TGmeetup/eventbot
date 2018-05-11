@@ -7,10 +7,12 @@ import ast
 import subprocess
 import requests
 import json
+from pprint import pprint
 #import datetime
 import markdown
 from datetime import datetime, date
 from bs4 import BeautifulSoup
+from urllib.parse import quote, unquote
 
 class EventIssueHandle():
     def __init__(self, repo, authkey):
@@ -30,10 +32,7 @@ class EventIssueHandle():
                 for l in e["labels"]:
                     if l["name"] == label:
                         soup = BeautifulSoup(e["body"], "html.parser")
-                        try:
-                            body = json.loads(soup.details.string)
-                        except:
-                            body = ast.literal_eval(soup.details.string)
+                        body = json.loads(unquote(soup.details.string))
                         all_event_issue.append({
                             "title": e["title"],
                             "id": e["id"],
@@ -56,6 +55,7 @@ class EventIssueHandle():
                           int(data["local_time"].split(":")[0]),
                           int(data["local_time"].split(":")[1]))
         try:
+
             detaildata = [{
                 "name": data["name"],
                 "datetime": data["local_date"]+"T"+data["local_time"]+":00.000Z",
@@ -88,7 +88,7 @@ class EventIssueHandle():
                 <br><hr/><br> \
                 <blockquote><p> Pure data is right below <br> \
                 Leave it!</p></blockquote> \
-                <details>"+str(detaildata[0])+"</detail>"
+                <details>"+quote(json.dumps(detaildata[0]))+"</detail>"
         return body
 
     def add_issue(self, data, groupRef):
@@ -104,6 +104,6 @@ class EventIssueHandle():
               \"labels\": [\
                 \"Event\"\
               ]}"
-        pprint(payload)
+        #pprint(payload)
         result = requests.post(url, headers=self.header, data=payload.encode('utf-8'))
         print(result)
