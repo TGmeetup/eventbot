@@ -1,16 +1,13 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 # coding=utf-8
 
-import io
-import os
-import json
 import subprocess
 import configparser
 from datetime import datetime
 try:
     from .libs.EventIssueHandle import EventIssueHandle
     from .libs.LocalEventHandle import LocalEventHandle
-except:
+except BaseException:
     from libs.EventIssueHandle import EventIssueHandle
     from libs.LocalEventHandle import LocalEventHandle
 
@@ -26,8 +23,9 @@ Code flow:
 4. if there is an item in issues list, close the issue from GitHub
 """
 
+
 def main():
-    #subprocess.check_output("tgmeetup -u", shell=True)
+    subprocess.check_output("tgmeetup -u", shell=True)
 
     config = configparser.ConfigParser()
     config.read("AuthKey.cfg")
@@ -37,7 +35,6 @@ def main():
     issuelist = issuehandle.get_issue_list("Event")
     issue_list = issuelist
     localevent = localhandle.get_event_list()
-    local_event = localevent
 
     if len(issuelist) == 0:
         for i in localevent:
@@ -51,13 +48,14 @@ def main():
                 if j["name"] == i["name"] and j["datetime"] == i["datetime"]:
                     issue_list.remove(j)
                     add_event = False
-            if add_event == True:
+            if add_event is True:
                 detail_event = localhandle.get_event_detail(i)
                 issuehandle.add_issue(detail_event, i["groupRef"])
 
     if len(issue_list) > 0:
         for i in issue_list:
-            if datetime.strptime(i["datetime"].split("T")[0], '%Y-%m-%d') < datetime.now():
+            if datetime.strptime(i["datetime"].split("T")[0],
+                                 '%Y-%m-%d') < datetime.now():
                 issuehandle.close_issue(i["number"])
 
 

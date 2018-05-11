@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-import io
-import os
 import json
 import subprocess
+
 
 class LocalEventHandle():
     def __init__(self, path):
         self.path = path
 
     def get_event_files(self):
-        get_files = subprocess.check_output("du -a "+self.path+" | grep events.json | awk '{print $2}'", shell=True)
+        get_files = subprocess.check_output(
+            "du -a " +
+            self.path +
+            " | grep events.json | awk '{print $2}'",
+            shell=True)
         ef_all = []
         for ef in get_files.splitlines():
             try:
@@ -29,12 +32,12 @@ class LocalEventHandle():
             for d in data:
                 local_events.append({
                     "path": efile,
-                    "groupRef": efile.split('TGmeetup/', 1 )[1].split('/events.json')[0],
+                    "groupRef": efile.split('TGmeetup/', 1)[1].split('/events.json')[0],
                     "name": d["name"],
-                    "datetime": d["local_date"]+"T"+d["local_time"]+":00.000Z",
+                    "datetime": d["local_date"] + "T" + d["local_time"] + ":00.000Z",
                     "event_num": num
                 })
-                num = num+1
+                num = num + 1
         return local_events
 
     def get_event_detail(self, event):
