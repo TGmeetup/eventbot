@@ -104,5 +104,6 @@ class EventIssueHandle():
               \"labels\": [\
                 \"Event\"\
               ]}"
+        pprint(payload)
         result = requests.post(url, headers=self.header, data=payload.encode('utf-8'))
         print(result)

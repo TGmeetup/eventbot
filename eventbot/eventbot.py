@@ -38,6 +38,9 @@ def main():
     localevent = localhandle.get_event_list()
 
     for i in localevent:
+        if len(issue_list) == 0:
+            detail_event = localhandle.get_event_detail(i)
+            issuehandle.add_issue(detail_event, i["groupRef"])
         for j in issue_list:
             if j["name"] == i["name"] and j["datetime"] == i["datetime"]:
                 issue_list.remove(j)
