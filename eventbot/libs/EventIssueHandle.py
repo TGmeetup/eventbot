@@ -69,7 +69,7 @@ class EventIssueHandle():
         except:
             detaildata = [{
                 "name": data["name"],
-                "datetime": data["local_date"]+"T"+data["local_time"]+":00.000Z",
+                "datetime": data["local_date"]+"T"+data["local_time"]+".000Z",
                 "local_city": data["local_city"],
                 "location": " ",
                 "geocode": data["geocode"],
