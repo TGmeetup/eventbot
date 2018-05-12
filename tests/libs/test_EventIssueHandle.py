@@ -18,12 +18,11 @@ class TestGetIssueList:
             "TGmeetup/TGevents",
             config['GitHub_kay']['API_KEY'])
         issue_list = issuehandle.get_issue_list("code_test")
-        assert issue_list == [{'title': '【May 9】For test case',
-                               'id': 321417295,
-                               'number': 4,
-                               'datetime': '2018-05-09T11:00:00.000Z',
-                               'name': 'For test case',
-                               'groupRef': 'community/tw/PyHUG'}]
+        assert issue_list[0]["title"] == "【May 9】For test case"
+        assert issue_list[0]["id"] == 321417295
+        assert issue_list[0]["number"] == 4
+        assert issue_list[0]["name"] == "For test case"
+        assert issue_list[0]["groupRef"] == "community/tw/DigitalOceanHsinchu"
 
 
 class TestIssues:

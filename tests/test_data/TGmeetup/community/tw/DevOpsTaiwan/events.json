@@ -5,10 +5,10 @@
       "lng": 121.5654177
     },
     "geocodeFromGroup": "true",
-    "link": "https://devops.kktix.cc/events/sre-7",
+    "link": "https://devops.kktix.cc/events/monitoring-tools",
     "local_city": "Taipei",
-    "local_date": "2018-02-08",
-    "local_time": "19:30:00",
-    "name": "SRE 讀書會 #7"
+    "local_date": "2018-05-26",
+    "local_time": "14:00:00",
+    "name": "DevOps Taiwan - Monitoring Tools 大亂鬥"
   }
 ]
