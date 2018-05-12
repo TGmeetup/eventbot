@@ -3,7 +3,7 @@
 
 import requests
 import json
-from datetime import datetime, date
+from datetime import datetime, date, timezone, timedelta
 from bs4 import BeautifulSoup
 from urllib.parse import quote, unquote
 
@@ -29,11 +29,18 @@ class EventIssueHandle():
                     if l["name"] == label:
                         soup = BeautifulSoup(e["body"], "html.parser")
                         body = json.loads(unquote(soup.details.string))
+                        event_time = datetime.strptime(
+                            body["datetime"][:-10], '%Y-%m-%dT%H:%M:%S')
+                        event_time = event_time.astimezone(
+                            timezone(
+                                timedelta(
+                                    hours=16))).isoformat(
+                            timespec='milliseconds')
                         all_event_issue.append({
                             "title": e["title"],
                             "id": e["id"],
                             "number": e["number"],
-                            "datetime": body["datetime"],
+                            "datetime": event_time[:-6],
                             "name": body["name"],
                             "groupRef": body["groupRef"]
                         })
@@ -47,17 +54,26 @@ class EventIssueHandle():
             data='{"state": "close", "labels":[]}',
             headers=self.header)
 
-    def generate_issue(self, data, groupRef):
-        eventdate = datetime(int(data["local_date"].split("-")[0]),
-                             int(data["local_date"].split("-")[1]),
-                             int(data["local_date"].split("-")[2]),
-                             int(data["local_time"].split(":")[0]),
-                             int(data["local_time"].split(":")[1]))
-        try:
+    def taipei_to_utc_time(self, local_date, local_time):
+        eventdate = datetime(int(local_date.split("-")[0]),
+                             int(local_date.split("-")[1]),
+                             int(local_date.split("-")[2]),
+                             int(local_time.split(":")[0]),
+                             int(local_time.split(":")[1]))
+        utc_eventdate = eventdate.astimezone(
+            timezone(
+                offset=timedelta(
+                    hours=0))).isoformat(
+            timespec='milliseconds')
+        return eventdate, utc_eventdate
 
+    def generate_issue(self, data, groupRef):
+        eventdate, utc_eventdate = self.taipei_to_utc_time(
+            data["local_date"], data["local_time"])
+        try:
             detaildata = [{
                 "name": data["name"],
-                "datetime": data["local_date"] + "T" + data["local_time"] + ":00.000Z",
+                "datetime": str(utc_eventdate),
                 "local_city": data["local_city"],
                 "location": data["location"],
                 "geocode": data["geocode"],
@@ -68,7 +84,7 @@ class EventIssueHandle():
         except BaseException:
             detaildata = [{
                 "name": data["name"],
-                "datetime": data["local_date"] + "T" + data["local_time"] + ".000Z",
+                "datetime": str(utc_eventdate),
                 "local_city": data["local_city"],
                 "location": " ",
                 "geocode": data["geocode"],

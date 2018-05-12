@@ -30,13 +30,23 @@ class LocalEventHandle():
             data = json.load(open(efile))
             num = 0
             for d in data:
-                local_events.append({
-                    "path": efile,
-                    "groupRef": efile.split('TGmeetup/', 1)[1].split('/events.json')[0],
-                    "name": d["name"],
-                    "datetime": d["local_date"] + "T" + d["local_time"] + ":00.000Z",
-                    "event_num": num
-                })
+                try:
+                    if d["location"] is not None:
+                        local_events.append({
+                            "path": efile,
+                            "groupRef": efile.split('TGmeetup/', 1)[1].split('/events.json')[0],
+                            "name": d["name"],
+                            "datetime": d["local_date"] + "T" + d["local_time"] + ":00.000",
+                            "event_num": num
+                        })
+                except BaseException:
+                    local_events.append({
+                        "path": efile,
+                        "groupRef": efile.split('TGmeetup/', 1)[1].split('/events.json')[0],
+                        "name": d["name"],
+                        "datetime": d["local_date"] + "T" + d["local_time"] + ".000",
+                        "event_num": num
+                    })
                 num = num + 1
         return local_events
 
