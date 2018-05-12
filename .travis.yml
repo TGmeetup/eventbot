@@ -8,5 +8,5 @@ install:
 script:
     - cp AuthKey.cfg.sample AuthKey.cfg
     - sed -i -e 's/API_KEY = 9908......................c2cf7/API_KEY = '"$GH_token"'/g' AuthKey.cfg
-    - flake8 --exclude=venv,setup.py --max-line-length=90
+    - flake8 --exclude=venv,setup.py --max-line-length=96
     - pytest
