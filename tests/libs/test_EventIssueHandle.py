@@ -15,12 +15,12 @@ class TestGetIssueList:
         config = configparser.ConfigParser()
         config.read("AuthKey.cfg")
         issuehandle = EventIssueHandle(
-            "TGmeetup/TGevents",
+            "TGmeetup/eventbot",
             config['GitHub_kay']['API_KEY'])
         issue_list = issuehandle.get_issue_list("code_test")
         assert issue_list[0]["title"] == "【May 9】For test case"
-        assert issue_list[0]["id"] == 321417295
-        assert issue_list[0]["number"] == 4
+        assert issue_list[0]["id"] == 322855376
+        assert issue_list[0]["number"] == 1
         assert issue_list[0]["name"] == "For test case"
         assert issue_list[0]["groupRef"] == "community/tw/DigitalOceanHsinchu"
 
