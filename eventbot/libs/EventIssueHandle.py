@@ -92,6 +92,7 @@ class EventIssueHandle():
                 "link": data["link"],
                 "groupRef": groupRef
             }]
+        print(data["name"])
         body = "<h1> " + data["name"] + "</h1>  \
                 <h3> ● 報名連結 / Registration link </h3> <a href='" + data["link"] + "'>" + data["link"] + "</a>  <br> \
                 <h3> ● 地點 / Location</h3>   " + detaildata[0]["location"] + " @ " + data["local_city"] + "  <br> \
@@ -113,7 +114,7 @@ class EventIssueHandle():
                          int(data["local_date"].split("-")[1]),
                          int(data["local_date"].split("-")[2]))
         payload = "{\
-              \"title\": \"【" + eventdate.strftime("%B %d") + "】" + data["name"] + "\",\
+              \"title\": \"【" + eventdate.strftime("%B %d") + "】《" + groupRef.split('/')[2] + "》" + data["name"] + "\",\
               \"body\": \"" + str(body) + "\",\
               \"state\": \"open\",\
               \"labels\": [\
