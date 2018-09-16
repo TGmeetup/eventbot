@@ -86,7 +86,7 @@ class EventIssueHandle():
                 "name": data["name"],
                 "datetime": str(utc_eventdate),
                 "local_city": data["local_city"],
-                "location": " ",
+                "location": "",
                 "geocode": data["geocode"],
                 "geocodeFromGroup": data["geocodeFromGroup"],
                 "link": data["link"],
