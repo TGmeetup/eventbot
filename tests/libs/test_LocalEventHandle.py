@@ -25,13 +25,13 @@ class TestGetEventList:
         assert events_list == [
             {
                 'path': 'tests/test_data/TGmeetup/community/tw/DevOpsTaiwan/events.json',
-                'groupRef': 'community/tw/DevOpsTaiwan',
+                'group_ref': 'community/tw/DevOpsTaiwan',
                 'name': 'DevOps Taiwan - Monitoring Tools 大亂鬥',
                 'datetime': '2018-05-26T14:00:00.000',
                 'event_num': 0},
             {
                 'path': 'tests/test_data/TGmeetup/community/tw/DigitalOceanHsinchu/events.json',
-                'groupRef': 'community/tw/DigitalOceanHsinchu',
+                'group_ref': 'community/tw/DigitalOceanHsinchu',
                 'name': 'Ansible with DigitalOcean',
                 'datetime': '2018-05-14T18:50:00.000',
                 'event_num': 0}]
@@ -43,7 +43,7 @@ class TestGetEventDetail:
         event = localhandle.get_event_detail(
             {
                 'path': 'tests/test_data/TGmeetup/community/tw/DevOpsTaiwan/events.json',
-                'groupRef': 'community/tw/DevOpsTaiwan',
+                'group_ref': 'community/tw/DevOpsTaiwan',
                 'name': 'DevOps Taiwan - Monitoring Tools 大亂鬥',
                 'datetime': '2018-05-26T14:00:00.000',
                 'event_num': 0})

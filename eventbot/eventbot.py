@@ -25,7 +25,7 @@ Code flow:
 
 
 def main():
-    subprocess.check_output("tgmeetup -u", shell=True)
+    #subprocess.check_output("tgmeetup -u", shell=True)
 
     config = configparser.ConfigParser()
     config.read("AuthKey.cfg")
@@ -39,7 +39,7 @@ def main():
     if len(issuelist) == 0:
         for i in localevent:
             detail_event = localhandle.get_event_detail(i)
-            issuehandle.add_issue(detail_event, i["groupRef"])
+            issuehandle.add_issue(detail_event, i["group_ref"])
 
     if len(issuelist) != 0:
         for i in localevent:
@@ -50,7 +50,7 @@ def main():
                     add_event = False
             if add_event is True:
                 detail_event = localhandle.get_event_detail(i)
-                issuehandle.add_issue(detail_event, i["groupRef"])
+                issuehandle.add_issue(detail_event, i["group_ref"])
 
     if len(issue_list) > 0:
         for i in issue_list:

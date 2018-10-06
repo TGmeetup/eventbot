@@ -42,7 +42,7 @@ class EventIssueHandle():
                             "number": e["number"],
                             "datetime": event_time[:-6],
                             "name": body["name"],
-                            "groupRef": body["groupRef"]
+                            "group_ref": body["group_ref"]
                         })
         return all_event_issue
 
@@ -67,7 +67,7 @@ class EventIssueHandle():
             timespec='milliseconds')
         return eventdate, utc_eventdate
 
-    def generate_issue(self, data, groupRef):
+    def generate_issue(self, data, group_ref):
         eventdate, utc_eventdate = self.taipei_to_utc_time(
             data["local_date"], data["local_time"])
         try:
@@ -79,7 +79,7 @@ class EventIssueHandle():
                 "geocode": data["geocode"],
                 "geocodeFromGroup": data["geocodeFromGroup"],
                 "link": data["link"],
-                "groupRef": groupRef
+                "group_ref": group_ref
             }]
         except BaseException:
             detaildata = [{
@@ -90,7 +90,7 @@ class EventIssueHandle():
                 "geocode": data["geocode"],
                 "geocodeFromGroup": data["geocodeFromGroup"],
                 "link": data["link"],
-                "groupRef": groupRef
+                "group_ref": group_ref
             }]
         print(data["name"])
         body = "<h1> " + data["name"] + "</h1>  \
@@ -98,23 +98,23 @@ class EventIssueHandle():
                 <h3> ● 地點 / Location</h3>   " + detaildata[0]["location"] + " @ " + data["local_city"] + "  <br> \
                 <h3> ● 時間 / Date Time</h3>  " + eventdate.strftime("%A, %d. %B %Y %H:%M") + " :clock7:  <br> \
                 <h3> ● 主辦單位資訊 / Group Information   </h3>\
-                - Category: " + groupRef.split('/')[0] + " <br>  \
-                - Name: " + groupRef.split('/')[2] + "  <br> \
-                - URL: <a href='https://raw.githubusercontent.com/TGmeetup/TGmeetup/master/" + groupRef + "/README.md'>https://raw.githubusercontent.com/TGmeetup/TGmeetup/master/" + groupRef + "/README.md</a>   <br> \
+                - Category: " + group_ref.split('/')[0] + " <br>  \
+                - Name: " + group_ref.split('/')[2] + "  <br> \
+                - URL: <a href='https://raw.githubusercontent.com/TGmeetup/TGmeetup/master/" + group_ref + "/README.md'>https://raw.githubusercontent.com/TGmeetup/TGmeetup/master/" + group_ref + "/README.md</a>   <br> \
                 <br><hr/><br> \
                 <blockquote><p> Pure data is right below <br> \
                 Leave it!</p></blockquote> \
                 <details>" + quote(json.dumps(detaildata[0])) + "</detail>"
         return body
 
-    def add_issue(self, data, groupRef):
-        body = self.generate_issue(data, groupRef)
+    def add_issue(self, data, group_ref):
+        body = self.generate_issue(data, group_ref)
         url = self.github_api + self.repo + "/issues"
         eventdate = date(int(data["local_date"].split("-")[0]),
                          int(data["local_date"].split("-")[1]),
                          int(data["local_date"].split("-")[2]))
         payload = "{\
-              \"title\": \"【" + eventdate.strftime("%B %d") + "】《" + groupRef.split('/')[2] + "》" + data["name"] + "\",\
+              \"title\": \"【" + eventdate.strftime("%B %d") + "】《" + group_ref.split('/')[2] + "》" + data["name"] + "\",\
               \"body\": \"" + str(body) + "\",\
               \"state\": \"open\",\
               \"labels\": [\

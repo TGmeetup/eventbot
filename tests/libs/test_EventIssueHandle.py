@@ -22,7 +22,7 @@ class TestGetIssueList:
         assert issue_list[0]["id"] == 322855376
         assert issue_list[0]["number"] == 1
         assert issue_list[0]["name"] == "For test case"
-        assert issue_list[0]["groupRef"] == "community/tw/DigitalOceanHsinchu"
+        assert issue_list[0]["group_ref"] == "community/tw/DigitalOceanHsinchu"
 
 
 class TestIssues:
