@@ -34,15 +34,18 @@ class LocalEventHandle():
                     if d["location"] is not None:
                         local_events.append({
                             "path": efile,
-                            "group_ref": efile.split('TGmeetup/', 1)[1].split('/events.json')[0],
+                            "group_ref":
+                                efile.split('TGmeetup/', 1)[1].split('/events.json')[0],
                             "name": d["name"],
-                            "datetime": d["local_date"] + "T" + d["local_time"] + ":00.000",
+                            "datetime":
+                                d["local_date"] + "T" + d["local_time"] + ":00.000",
                             "event_num": num
                         })
                 except BaseException:
                     local_events.append({
                         "path": efile,
-                        "group_ref": efile.split('TGmeetup/', 1)[1].split('/events.json')[0],
+                        "group_ref":
+                            efile.split('TGmeetup/', 1)[1].split('/events.json')[0],
                         "name": d["name"],
                         "datetime": d["local_date"] + "T" + d["local_time"] + ".000",
                         "event_num": num

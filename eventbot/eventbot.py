@@ -25,11 +25,13 @@ Code flow:
 
 
 def main():
-    #subprocess.check_output("tgmeetup -u", shell=True)
+    subprocess.check_output("tgmeetup -u", shell=True)
 
     config = configparser.ConfigParser()
     config.read("AuthKey.cfg")
-    issuehandle = EventIssueHandle("TGmeetup/TGmeetup.github.io", config['GitHub_kay']['API_KEY'])
+    issuehandle = EventIssueHandle(
+        "TGmeetup/TGmeetup.github.io",
+        config['GitHub_kay']['API_KEY'])
     localhandle = LocalEventHandle("~/.config/TGmeetup")
 
     issuelist = issuehandle.get_issue_list("Event")
@@ -45,13 +47,14 @@ def main():
         for i in localevent:
             add_event = True
             for j in issuelist:
-                # If local event is on GitHub issue, remove the adding event list from memory
+                # If local event is on GitHub issue, remove the adding event list from
+                # memory
                 if j["name"] == i["name"] and j["datetime"] == i["datetime"]:
                     issue_list.remove(j)
                     add_event = False
             # If local event is not on GitHub issue, search again
             # If found the local event is on GitHub, add_event is False
-            if issuehandle.get_issue(i["name"], "Event") == True:
+            if issuehandle.get_issue(i["name"], "Event") is True:
                 add_event = False
             # Finally, if add_event is True, let's add this local event on GitHub issue
             if add_event is True:
@@ -66,6 +69,7 @@ def main():
                 issuehandle.close_issue(i["number"])
     # Search GitHub issue by title < Today and close these GitHub issue
     # Todo..
+
 
 if __name__ == '__main__':
     main()
