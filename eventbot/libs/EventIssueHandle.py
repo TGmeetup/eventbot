@@ -17,6 +17,14 @@ class EventIssueHandle():
             'Content-type': 'application/vnd.github.symmetra-preview+json;',
             'Authorization': self.authkey}
 
+    def get_issue(self, title, label):
+        url = "https://api.github.com/search/issues?q=label:" + label + \
+            "+state:open+repo:" + self.repo + "+state:open+in:" + title
+        result = requests.get(url, headers=self.header)
+        event_info = result.json()
+        if event_info.items != []:
+            return True
+
     def get_issue_list(self, label):
         # Get issues from GitHub, and return list
         all_event_issue = []
