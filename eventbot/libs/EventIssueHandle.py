@@ -24,6 +24,8 @@ class EventIssueHandle():
         event_info = result.json()
         if event_info.items != []:
             return True
+        else:
+            return False
 
     def get_issue_list(self, label):
         # Get issues from GitHub, and return list
