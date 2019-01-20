@@ -56,6 +56,8 @@ def main():
             # If found the local event is on GitHub, add_event is False
             if issuehandle.get_issue(i["name"], "Event") is True:
                 add_event = False
+            else:
+                add_event = True
             # Finally, if add_event is True, let's add this local event on GitHub issue
             if add_event is True:
                 detail_event = localhandle.get_event_detail(i)

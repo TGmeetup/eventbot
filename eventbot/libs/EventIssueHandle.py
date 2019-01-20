@@ -19,16 +19,16 @@ class EventIssueHandle():
 
     def get_issue(self, title, label):
         url = "https://api.github.com/search/issues?q=label:" + label + \
-            "+state:open+repo:" + self.repo + "+state:open+in:" + title
+            "+state:open+repo:" + self.repo +"+"+ title
         result = requests.get(url, headers=self.header)
         event_info = result.json()
         try:
-            if event_info["total_count"] != 0:
-                return True
-            else:
+            if event_info["total_count"] == str(0):
                 return False
+            else:
+                return True
         except BaseException:
-            return True
+            return False
 
     def get_issue_list(self, label):
         # Get issues from GitHub, and return list
