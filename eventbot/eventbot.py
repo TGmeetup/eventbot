@@ -30,7 +30,7 @@ def main():
     config = configparser.ConfigParser()
     config.read("AuthKey.cfg")
     issuehandle = EventIssueHandle(
-        "TGmeetup/TGmeetup.github.io",
+        "TGmeetup/TGmeetup",
         config['GitHub_kay']['API_KEY'])
     localhandle = LocalEventHandle("~/.config/TGmeetup")
 
